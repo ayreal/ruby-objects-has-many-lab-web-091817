@@ -1,38 +1,29 @@
 require 'pry'
 
 class Artist
+  attr_accessor :name, :songs
   @@song_count = 0
-  attr_accessor :name #, :songs
 
   def initialize(name)
     @name = name
     @songs = []
   end
 
-  def add_song(song)
-    @songs << song
-    song.artist = self   #what is the artist= method here? How did we get it?
+
+  def add_song(song) # a song object passed in
+    song.artist = self
+    songs << song
     @@song_count += 1
   end
 
-  def add_song_by_name(name)
-    # eg adele.songs.last.name = "halo"
-    # improves upon above method
-    song = Song.new(name)  # this is a variable not a setter
-    @songs << song
-    song.artist = self  #this is a setter
-    @@song_count += 1
+  def add_song_by_name(name) # a string is passed in
+    song = Song.new(name)
+    self.add_song(song)
   end
 
-
-
-#SELF.methodname makes it a CLASS METHOD operating on entire class
-# is this a reader??
-  def self.song_count #the ttl # of songs assoc w all existing artists
+  def self.song_count
     @@song_count
   end
-
-  def songs
-    @songs
-  end
 end
+
+#adele.song_count = 2
